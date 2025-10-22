@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown to DOCX Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Markdown to DOCX Converter</h1>
+            <p>Convert your Markdown files to modern Word documents (.docx) directly in your browser</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <div class="file-input-wrapper">
+                    <input type="file" id="mdFile" accept=".md,.markdown" />
+                    <label for="mdFile" class="file-input-label">
+                        <span class="file-input-text">Choose Markdown File</span>
+                    </label>
+                </div>
+                <p class="file-hint">Supported formats: .md, .markdown</p>
+            </div>
+
+            <div class="preview-section">
+                <h2>Preview</h2>
+                <div id="preview" class="preview-content"></div>
+            </div>
+
+            <div class="action-section">
+                <button id="convertBtn" class="convert-btn" disabled>Convert to DOCX</button>
+                <div id="status" class="status-message"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Your files are processed locally in your browser - no server upload required</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/markdown-docx@1.0.4/lib/index.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
