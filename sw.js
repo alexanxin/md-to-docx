@@ -1,50 +1,43 @@
-// Service Worker for PWA functionality
-
+// Service Worker for PWA
 const CACHE_NAME = 'md-to-docx-v1';
 const urlsToCache = [
     '/',
-    '/index.html',
-    '/styles.css',
-    '/script.js',
-    '/manifest.json'
+    '/manifest.json',
+    '/android-launchericon-192-192.png',
+    '/android-launchericon-512-512.png',
+    '/AppImages (1)/ios/180.png',
+    '/AppImages (1)/ios/152.png',
+    '/AppImages (1)/ios/167.png'
 ];
 
 // Install event - cache resources
-self.addEventListener('install', function (event) {
+self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(function (cache) {
-                console.log('Opened cache');
+            .then((cache) => {
                 return cache.addAll(urlsToCache);
             })
     );
 });
 
-// Fetch event - serve from cache or network
-self.addEventListener('fetch', function (event) {
+// Fetch event - serve from cache if available
+self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
-            .then(function (response) {
-                // Return cached version if available
-                if (response) {
-                    return response;
-                }
-
-                // Otherwise, make network request
-                return fetch(event.request);
-            }
-            )
+            .then((response) => {
+                // Return cached version or fetch from network
+                return response || fetch(event.request);
+            })
     );
 });
 
 // Activate event - clean up old caches
-self.addEventListener('activate', function (event) {
+self.addEventListener('activate', (event) => {
     event.waitUntil(
-        caches.keys().then(function (cacheNames) {
+        caches.keys().then((cacheNames) => {
             return Promise.all(
-                cacheNames.map(function (cacheName) {
+                cacheNames.map((cacheName) => {
                     if (cacheName !== CACHE_NAME) {
-                        console.log('Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
